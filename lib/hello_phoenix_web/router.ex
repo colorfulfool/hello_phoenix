@@ -17,13 +17,15 @@ defmodule HelloPhoenixWeb.Router do
   scope "/", HelloPhoenixWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", DashboardController, :home
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", HelloPhoenixWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", HelloPhoenixWeb do
+    pipe_through :api
+
+    get "/:environment/flags/:identity", ApiController, :flags
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:hello_phoenix, :dev_routes) do

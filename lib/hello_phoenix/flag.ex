@@ -3,9 +3,7 @@ defmodule HelloPhoenix.Flag do
   import Ecto.Changeset
 
   schema "flags" do
-    field :enabled, :boolean, default: false
     field :name, :string
-    field :value, :string
     field :description, :string
 
     timestamps(type: :utc_datetime)

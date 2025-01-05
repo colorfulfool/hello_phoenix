@@ -8,6 +8,8 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
   def compute_flags(%{:environment => environment}) do
     FlagState
     |> where(environment_id: ^environment)
+    |> join(:inner, [fs], f in assoc(fs, :flag))
+    |> preload([fs, f], flag: f)
     |> Repo.all()
   end
 

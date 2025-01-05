@@ -5,10 +5,8 @@ defmodule HelloPhoenixWeb.ApiController do
 
   action_fallback HelloPhoenixWeb.FallbackController
 
-  def flags(conn, %{"identity" => identity, "environment" => environment}) do
-    render(conn, "flags.json", %{
-      :flags => HelloPhoenixWeb.compute_flags(%{"environment" => environment}),
-      :identity => identity
-    })
+  def flags(conn, %{"environment" => environment, "identity" => identity}) do
+    flags = HelloPhoenixWeb.compute_flags(%{:environment => environment})
+    render(conn, "flags.json", flags: flags, identity: identity)
   end
 end

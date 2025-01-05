@@ -2,11 +2,12 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
   import Ecto.Query, warn: false
   alias HelloPhoenix.Repo
 
-  alias HelloPhoenix.HelloPhoenixWeb.Flag
+  alias HelloPhoenix.Flag
+  alias HelloPhoenix.FlagState
 
-  def compute_flags(%{:environment_id => environment_id}) do
+  def compute_flags(%{:environment => environment}) do
     FlagState
-    |> where(environment_id: ^environment_id)
+    |> where(environment_id: ^environment)
     |> Repo.all()
   end
 

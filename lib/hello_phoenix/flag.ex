@@ -1,4 +1,4 @@
-defmodule HelloPhoenix.HelloPhoenixWeb.Flag do
+defmodule HelloPhoenix.Flag do
   use Ecto.Schema
   import Ecto.Changeset
 

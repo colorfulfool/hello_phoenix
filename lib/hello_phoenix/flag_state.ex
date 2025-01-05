@@ -3,12 +3,14 @@ defmodule HelloPhoenix.FlagState do
   import Ecto.Changeset
 
   alias HelloPhoenix.Flag
+  alias HelloPhoenix.Environment
 
   schema "flag_states" do
     field :enabled, :boolean, default: false
     field :value, :string
-    field :environment_id, :id
+
     belongs_to :flag, Flag
+    belongs_to :environment, Environment
 
     timestamps(type: :utc_datetime)
   end

@@ -4,6 +4,7 @@ defmodule HelloPhoenix.Environment do
 
   schema "environments" do
     field :name, :string
+    field :key, :string
 
     timestamps(type: :utc_datetime)
   end

@@ -1,16 +1,18 @@
 defmodule HelloPhoenix.HelloPhoenixWeb do
   import Ecto.Query, warn: false
+  alias HelloPhoenix.Environment
   alias HelloPhoenix.Repo
 
   alias HelloPhoenix.Flag
   alias HelloPhoenix.FlagState
 
-  def compute_flags(%{:environment => environment}) do
+  def compute_flags(%{:environment => environment_key}) do
+    environment = from e in Environment, select: e.id, where: e.key == ^environment_key
+
     FlagState
-    |> join(:inner, [fs], e in assoc(fs, :environment))
     |> join(:inner, [fs], f in assoc(fs, :flag))
-    |> preload([fs, e, f], flag: f, environment: e)
-    |> where([fs, e], e.key == ^environment)
+    |> preload([fs, f], flag: f)
+    |> where([fs], fs.environment_id == subquery(environment))
     |> Repo.all()
   end
 

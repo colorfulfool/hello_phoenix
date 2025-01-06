@@ -22,8 +22,4 @@ defmodule HelloPhoenixWeb.ThermostatLive do
 
     {:ok, assign(socket, :flags, flags) |> assign(:environment, environment)}
   end
-
-  def handle_event("inc_temperature", _params, socket) do
-    {:noreply, update(socket, :temperature, &(&1 + 1))}
-  end
 end

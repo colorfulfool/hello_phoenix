@@ -18,6 +18,7 @@ defmodule HelloPhoenixWeb.Router do
     pipe_through :browser
 
     get "/", DashboardController, :features
+    live "/thermostat", ThermostatLive
   end
 
   # Other scopes may use custom stacks.

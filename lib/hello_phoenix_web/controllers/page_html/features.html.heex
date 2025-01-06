@@ -8,15 +8,7 @@
           <div class="font-bold">{flag_state.flag.name}</div>
           <div>{flag_state.flag.description}</div>
         </div>
-        <%= if flag_state.enabled do %>
-          <button class="w-20 h-12 bg-green-500 rounded-lg p-1 flex justify-end">
-            <div class="w-10 h-10 bg-white rounded" />
-          </button>
-        <% else %>
-          <button class="w-20 h-12 bg-zinc-200 rounded-lg p-1 flex">
-            <div class="w-10 h-10 bg-white rounded" />
-          </button>
-        <% end %>
+        <.toggle enabled={flag_state.enabled} />
       </div>
     <% end %>
   </div>

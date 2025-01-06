@@ -17,7 +17,7 @@ defmodule HelloPhoenixWeb.Router do
   scope "/", HelloPhoenixWeb do
     pipe_through :browser
 
-    get "/", DashboardController, :home
+    get "/", DashboardController, :features
   end
 
   # Other scopes may use custom stacks.

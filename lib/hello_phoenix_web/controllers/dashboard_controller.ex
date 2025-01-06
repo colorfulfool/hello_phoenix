@@ -3,10 +3,10 @@ defmodule HelloPhoenixWeb.DashboardController do
 
   alias HelloPhoenix.HelloPhoenixWeb
 
-  def home(conn, params) do
+  def features(conn, params) do
     environment = HelloPhoenixWeb.get_environment(params[:environment])
     flags = HelloPhoenixWeb.compute_flags(%{:environment => environment.key})
 
-    render(conn, "home.html", %{:flags => flags, :environment => environment})
+    render(conn, "features.html", %{:flags => flags, :environment => environment})
   end
 end

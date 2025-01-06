@@ -56,4 +56,8 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
   def change_flag(%Flag{} = flag, attrs \\ %{}) do
     Flag.changeset(flag, attrs)
   end
+
+  def set_flag_state_enabled(id, value) do
+    FlagState |> where(id: ^id) |> Repo.update_all(set: [enabled: value])
+  end
 end

@@ -2,6 +2,7 @@ defmodule HelloPhoenixWeb.FeatureLive do
   use Phoenix.LiveComponent
 
   import HelloPhoenixWeb.FlagComponents
+  alias HelloPhoenix.HelloPhoenixWeb
 
   def render(assigns) do
     ~H"""
@@ -16,7 +17,9 @@ defmodule HelloPhoenixWeb.FeatureLive do
   end
 
   def handle_event("toggle", _params, socket) do
-    flag_state = Map.update!(socket.assigns.flag_state, :enabled, &(!&1))
-    {:noreply, assign(socket, :flag_state, flag_state)}
+    new_enabled = !socket.assigns.flag_state.enabled
+    HelloPhoenixWeb.set_flag_state_enabled(socket.assigns.flag_state.id, new_enabled)
+    new_flag_state = Map.put(socket.assigns.flag_state, :enabled, new_enabled)
+    {:noreply, assign(socket, :flag_state, new_flag_state)}
   end
 end

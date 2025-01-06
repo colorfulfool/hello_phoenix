@@ -1,9 +1,12 @@
 defmodule HelloPhoenixWeb.DashboardController do
   use HelloPhoenixWeb, :controller
 
-  def home(conn, _params) do
-    # The home page is often custom made,
-    # so skip the default app layout.
-    render(conn, "home.html")
+  alias HelloPhoenix.HelloPhoenixWeb
+
+  def home(conn, params) do
+    environment = HelloPhoenixWeb.get_environment(params[:environment])
+    flags = HelloPhoenixWeb.compute_flags(%{:environment => environment.key})
+
+    render(conn, "home.html", %{:flags => flags, :environment => environment})
   end
 end

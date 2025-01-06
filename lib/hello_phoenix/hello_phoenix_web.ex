@@ -1,10 +1,18 @@
 defmodule HelloPhoenix.HelloPhoenixWeb do
   import Ecto.Query, warn: false
+
   alias HelloPhoenix.Environment
   alias HelloPhoenix.Repo
-
   alias HelloPhoenix.Flag
   alias HelloPhoenix.FlagState
+
+  def get_environment(nil) do
+    Environment |> Repo.one()
+  end
+
+  def get_environment(key) do
+    Environment |> where(key: ^key) |> Repo.one()
+  end
 
   def list_flags(%{:environment => environment_key}) do
     environment = from e in Environment, select: e.id, where: e.key == ^environment_key

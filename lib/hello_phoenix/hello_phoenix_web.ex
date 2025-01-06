@@ -6,13 +6,23 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
   alias HelloPhoenix.Flag
   alias HelloPhoenix.FlagState
 
-  def compute_flags(%{:environment => environment_key}) do
+  def list_flags(%{:environment => environment_key}) do
     environment = from e in Environment, select: e.id, where: e.key == ^environment_key
 
     FlagState
     |> join(:inner, [fs], f in assoc(fs, :flag))
-    |> preload([fs, f], flag: f)
     |> where([fs], fs.environment_id == subquery(environment))
+  end
+
+  def compute_flags(%{:environment => environment_key, :identity => identity_key}) do
+    list_flags(%{:environment => environment_key})
+    |> select([fs, f], %{:name => f.name, :enabled => fs.enabled, :value => fs.value})
+    |> Repo.all()
+  end
+
+  def compute_flags(%{:environment => environment_key}) do
+    list_flags(%{:environment => environment_key})
+    |> preload([fs, f], flag: f)
     |> Repo.all()
   end
 

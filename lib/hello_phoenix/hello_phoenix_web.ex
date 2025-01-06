@@ -14,7 +14,7 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
     Environment |> where(key: ^key) |> Repo.one()
   end
 
-  def list_flags(%{:environment => environment_key}) do
+  def list_flags(%{:environment_key => environment_key}) do
     environment = from e in Environment, select: e.id, where: e.key == ^environment_key
 
     FlagState
@@ -22,14 +22,14 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
     |> where([fs], fs.environment_id == subquery(environment))
   end
 
-  def compute_flags(%{:environment => environment_key, :identity => identity_key}) do
-    list_flags(%{:environment => environment_key})
+  def compute_flags(%{:environment_key => environment_key, :identity_key => identity_key}) do
+    list_flags(%{:environment_key => environment_key})
     |> select([fs, f], %{:name => f.name, :enabled => fs.enabled, :value => fs.value})
     |> Repo.all()
   end
 
-  def compute_flags(%{:environment => environment_key}) do
-    list_flags(%{:environment => environment_key})
+  def compute_flags(%{:environment_key => environment_key}) do
+    list_flags(%{:environment_key => environment_key})
     |> preload([fs, f], flag: f)
     |> Repo.all()
   end

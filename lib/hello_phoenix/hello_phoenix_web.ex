@@ -20,6 +20,7 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
     FlagState
     |> join(:inner, [fs], f in assoc(fs, :flag))
     |> where([fs], fs.environment_id == subquery(environment))
+    |> order_by([fs, f], asc: f.name)
   end
 
   def compute_flags(%{:environment_key => environment_key, :identity_key => identity_key}) do

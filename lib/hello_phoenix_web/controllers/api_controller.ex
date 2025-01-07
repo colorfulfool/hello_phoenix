@@ -3,8 +3,6 @@ defmodule HelloPhoenixWeb.ApiController do
 
   alias HelloPhoenix.HelloPhoenixWeb
 
-  action_fallback HelloPhoenixWeb.FallbackController
-
   def flags(conn, %{"environment" => environment_key, "identity" => identity_key}) do
     flags =
       HelloPhoenixWeb.compute_flags(%{

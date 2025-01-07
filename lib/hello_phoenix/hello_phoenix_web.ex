@@ -23,7 +23,7 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
     |> order_by([fs, f], asc: f.name)
   end
 
-  def compute_flags(%{:environment_key => environment_key, :identity_key => identity_key}) do
+  def compute_flags(%{:environment_key => environment_key, :identity_key => _identity_key}) do
     list_flags(%{:environment_key => environment_key})
     |> select([fs, f], %{:name => f.name, :enabled => fs.enabled, :value => fs.value})
     |> Repo.all()

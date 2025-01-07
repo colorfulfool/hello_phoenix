@@ -1,4 +1,4 @@
-defmodule HelloPhoenixWeb.ThermostatLive do
+defmodule HelloPhoenixWeb.EnvironmentFeaturesLive do
   use Phoenix.LiveView
   alias HelloPhoenixWeb, as: Web
   alias HelloPhoenix.HelloPhoenixWeb

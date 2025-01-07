@@ -9,7 +9,7 @@ defmodule HelloPhoenixWeb.FlagComponents do
     <button
       class={"
         w-20 h-12 #{if @enabled, do: "bg-green-500", else: "bg-zinc-200"} 
-        rounded-lg p-1 flex transition-all duration-200 relative
+        rounded-lg p-1 flex transition-all duration-200 relative flex-shrink-0
       "}
       {@rest}
     >

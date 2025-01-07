@@ -14,14 +14,14 @@ defmodule HelloPhoenixWeb.EnvironmentFeaturesLive do
   end
 
   def mount(:not_mounted_at_router, %{"environment" => environment}, socket) do
-    flags = HelloPhoenixWeb.compute_flags(%{:environment_key => environment.key})
+    flags = HelloPhoenixWeb.compute_flags(%{:environment_id => environment.id})
     Web.Endpoint.subscribe("flags")
     {:ok, assign(socket, :flags, flags)}
   end
 
   def mount(params, _session, socket) do
     environment = HelloPhoenixWeb.get_environment(params[:environment])
-    flags = HelloPhoenixWeb.compute_flags(%{:environment_key => environment.key})
+    flags = HelloPhoenixWeb.compute_flags(%{:environment_id => environment.id})
     Web.Endpoint.subscribe("flags")
     {:ok, assign(socket, :flags, flags)}
   end

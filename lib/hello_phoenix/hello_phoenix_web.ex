@@ -14,6 +14,13 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
     Environment |> where(key: ^key) |> Repo.one()
   end
 
+  def list_flags(%{:environment_id => environment_id}) do
+    FlagState
+    |> join(:inner, [fs], f in assoc(fs, :flag))
+    |> where([fs], fs.environment_id == ^environment_id)
+    |> order_by([fs, f], asc: f.name)
+  end
+
   def list_flags(%{:environment_key => environment_key}) do
     environment = from e in Environment, select: e.id, where: e.key == ^environment_key
 
@@ -26,6 +33,12 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
   def compute_flags(%{:environment_key => environment_key, :identity_key => _identity_key}) do
     list_flags(%{:environment_key => environment_key})
     |> select([fs, f], %{:name => f.name, :enabled => fs.enabled, :value => fs.value})
+    |> Repo.all()
+  end
+
+  def compute_flags(%{:environment_id => environment_id}) do
+    list_flags(%{:environment_id => environment_id})
+    |> preload([fs, f], flag: f)
     |> Repo.all()
   end
 

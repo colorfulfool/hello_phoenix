@@ -13,8 +13,8 @@ defmodule HelloPhoenixWeb.EnvironmentFeaturesLive do
     """
   end
 
-  def mount(:not_mounted_at_router, %{"environment" => environment}, socket) do
-    flags = HelloPhoenixWeb.compute_flags(%{:environment_id => environment.id})
+  def mount(:not_mounted_at_router, %{"environment_id" => environment_id}, socket) do
+    flags = HelloPhoenixWeb.compute_flags(%{:environment_id => environment_id})
     Web.Endpoint.subscribe("flags")
     {:ok, assign(socket, :flags, flags)}
   end

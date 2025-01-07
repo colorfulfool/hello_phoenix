@@ -5,8 +5,6 @@ defmodule HelloPhoenixWeb.DashboardController do
 
   def features(conn, params) do
     environment = HelloPhoenixWeb.get_environment(params[:environment])
-    flags = HelloPhoenixWeb.compute_flags(%{:environment_key => environment.key})
-
-    render(conn, "features.html", %{:flags => flags, :environment => environment})
+    render(conn, "features.html", %{:environment => environment})
   end
 end

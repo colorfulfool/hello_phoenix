@@ -14,6 +14,10 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
     Environment |> where(key: ^key) |> Repo.one()
   end
 
+  def list_environments() do
+    Environment |> order_by(asc: :name) |> Repo.all()
+  end
+
   def list_flags(%{:environment_id => environment_id}) do
     FlagState
     |> join(:inner, [fs], f in assoc(fs, :flag))

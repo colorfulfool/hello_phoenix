@@ -2,17 +2,50 @@ defmodule HelloPhoenixWeb.FeatureLive do
   use Phoenix.LiveComponent
 
   import HelloPhoenixWeb.FlagComponents
+  import HelloPhoenixWeb.CoreComponents
+
   alias HelloPhoenixWeb, as: Web
   alias HelloPhoenix.HelloPhoenixWeb
+  alias Phoenix.LiveView.JS
 
   def render(assigns) do
+    assigns = assign(assigns, :modal_id, "confirm-#{assigns.flag_state.id}")
+
     ~H"""
-    <div class="flex justify-between">
-      <div>
-        <div class="font-bold">{@flag_state.flag.name}</div>
-        <div>{@flag_state.flag.description}</div>
+    <div>
+      <div class="flex justify-between">
+        <div>
+          <div class="font-bold">{@flag_state.flag.name}</div>
+          <div>{@flag_state.flag.description}</div>
+        </div>
+        <.toggle
+          enabled={@flag_state.enabled}
+          phx-click={show_modal(%JS{}, @modal_id)}
+          phx-target={@myself}
+        />
       </div>
-      <.toggle enabled={@flag_state.enabled} phx-click="toggle" phx-target={@myself} />
+
+      <.modal id={@modal_id}>
+        <div class="space-y-3">
+          <div>
+            Are you sure you want to toggle <strong>{@flag_state.flag.name}</strong>?
+          </div>
+          <button
+            class="px-3 py-1 bg-green-500 rounded text-white font-bold"
+            phx-click={JS.push("toggle") |> hide_modal(@modal_id)}
+            phx-target={@myself}
+          >
+            Yes, toggle
+          </button>
+          <button
+            class="px-3 py-1 bg-zinc-200 rounded font-bold"
+            phx-click={hide_modal(@modal_id)}
+            phx-target={@myself}
+          >
+            No, keep
+          </button>
+        </div>
+      </.modal>
     </div>
     """
   end

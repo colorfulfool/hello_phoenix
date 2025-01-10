@@ -35,16 +35,11 @@ defmodule HelloPhoenixWeb.FeatureLive do
           </div>
           <button
             class="px-3 py-1 bg-green-500 rounded text-white font-bold"
-            phx-click={JS.push("toggle") |> hide_modal(@modal_id)}
-            phx-target={@myself}
+            phx-click={JS.push("toggle", target: @myself) |> hide_modal(@modal_id)}
           >
             Yes, {@action_name}
           </button>
-          <button
-            class="px-3 py-1 bg-zinc-200 rounded font-bold"
-            phx-click={hide_modal(@modal_id)}
-            phx-target={@myself}
-          >
+          <button class="px-3 py-1 bg-zinc-200 rounded font-bold" phx-click={hide_modal(@modal_id)}>
             No, keep {@keep_name}
           </button>
         </div>

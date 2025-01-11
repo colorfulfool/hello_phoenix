@@ -21,6 +21,7 @@ defmodule HelloPhoenixWeb.Router do
 
     scope "/:environment" do
       get "/features", DashboardController, :features
+      get "/scheduling", DashboardController, :scheduling
     end
   end
 

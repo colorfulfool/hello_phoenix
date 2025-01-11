@@ -5,16 +5,25 @@
         <.input
           type="select"
           name="environment"
-          options={HelloWeb.list_environments() |> Enum.map(& &1.name)}
+          options={HelloWeb.list_environments() |> Enum.map(&[key: &1.name, value: &1.id])}
           value="staging"
         />
       </div>
-      <a class="font-medium bg-zinc-200 rounded px-2">
+      <.naviagation_link
+        navigate={~p"/#{@environment.key}/features"}
+        active?={
+          @conn.request_path == ~p"/#{@environment.key}/features" ||
+            @conn.request_path == "/"
+        }
+      >
         <span>Features</span>
-      </a>
-      <a class="font-medium rounded px-2" href="#">
+      </.naviagation_link>
+      <.naviagation_link
+        navigate={~p"/#{@environment.key}/scheduling"}
+        active?={@conn.request_path == ~p"/#{@environment.key}/scheduling"}
+      >
         <span>Scheduling</span>
-      </a>
+      </.naviagation_link>
     </div>
   </div>
 </header>

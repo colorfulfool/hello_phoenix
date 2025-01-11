@@ -10,7 +10,7 @@
         />
       </div>
       <.naviagation_link
-        navigate={~p"/#{@environment.key}/features"}
+        href={~p"/#{@environment.key}/features"}
         active?={
           @conn.request_path == ~p"/#{@environment.key}/features" ||
             @conn.request_path == "/"
@@ -19,7 +19,7 @@
         <span>Features</span>
       </.naviagation_link>
       <.naviagation_link
-        navigate={~p"/#{@environment.key}/scheduling"}
+        href={~p"/#{@environment.key}/scheduling"}
         active?={@conn.request_path == ~p"/#{@environment.key}/scheduling"}
       >
         <span>Scheduling</span>

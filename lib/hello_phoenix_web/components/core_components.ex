@@ -567,13 +567,13 @@ defmodule HelloPhoenixWeb.CoreComponents do
     """
   end
 
-  attr :navigate, :any, required: true
+  attr :href, :any, required: true
   attr :active?, :boolean, default: false
   slot :inner_block, required: true
 
   def naviagation_link(assigns) do
     ~H"""
-    <.link navigate={@navigate} class={"font-medium #{@active? && "bg-zinc-200"} rounded px-2"}>
+    <.link href={@href} class={"font-medium #{@active? && "bg-zinc-200"} rounded px-2"}>
       {render_slot(@inner_block)}
     </.link>
     """

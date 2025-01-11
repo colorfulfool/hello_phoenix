@@ -90,6 +90,7 @@ defmodule HelloPhoenixWeb do
       # Core UI components
       import HelloPhoenixWeb.CoreComponents
       import HelloPhoenixWeb.FlagComponents
+      import HelloPhoenixWeb.BasicComponents
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

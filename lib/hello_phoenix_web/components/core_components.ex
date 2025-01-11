@@ -567,18 +567,6 @@ defmodule HelloPhoenixWeb.CoreComponents do
     """
   end
 
-  attr :href, :any, required: true
-  attr :active?, :boolean, default: false
-  slot :inner_block, required: true
-
-  def naviagation_link(assigns) do
-    ~H"""
-    <.link href={@href} class={"font-medium #{@active? && "bg-zinc-200"} rounded px-2"}>
-      {render_slot(@inner_block)}
-    </.link>
-    """
-  end
-
   @doc """
   Renders a [Heroicon](https://heroicons.com).
 

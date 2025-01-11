@@ -9,19 +9,10 @@
           value="staging"
         />
       </div>
-      <.naviagation_link
-        href={~p"/#{@environment.key}/features"}
-        active?={
-          @conn.request_path == ~p"/#{@environment.key}/features" ||
-            @conn.request_path == "/"
-        }
-      >
+      <.naviagation_link conn={@conn} href={~p"/#{@environment.key}/features"} match={[~p"/"]}>
         <span>Features</span>
       </.naviagation_link>
-      <.naviagation_link
-        href={~p"/#{@environment.key}/scheduling"}
-        active?={@conn.request_path == ~p"/#{@environment.key}/scheduling"}
-      >
+      <.naviagation_link conn={@conn} href={~p"/#{@environment.key}/scheduling"}>
         <span>Scheduling</span>
       </.naviagation_link>
     </div>

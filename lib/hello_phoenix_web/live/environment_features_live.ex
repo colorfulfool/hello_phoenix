@@ -19,25 +19,20 @@ defmodule HelloPhoenixWeb.EnvironmentFeaturesLive do
     {:ok, assign(socket, :flags, flags)}
   end
 
-  def mount(params, _session, socket) do
-    environment = HelloPhoenixWeb.get_environment(params[:environment])
-    flags = HelloPhoenixWeb.compute_flags(%{:environment_id => environment.id})
-    Web.Endpoint.subscribe("flags")
-    {:ok, assign(socket, :flags, flags)}
-  end
-
   def handle_info(
         %{
           topic: "flags",
           event: "flag_state_changed",
-          payload: %{:id => id, :enabled => enabled}
+          payload: payload
         },
         socket
       ) do
+    {%{id: id}, attributes} = Map.split(payload, [:id])
+
     new_flags =
       Enum.map(socket.assigns.flags, fn flag_state ->
         case flag_state.id do
-          ^id -> Map.put(flag_state, :enabled, enabled)
+          ^id -> Map.merge(flag_state, attributes)
           _ -> flag_state
         end
       end)

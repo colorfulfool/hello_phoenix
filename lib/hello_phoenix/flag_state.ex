@@ -19,6 +19,6 @@ defmodule HelloPhoenix.FlagState do
   def changeset(flag_state, attrs) do
     flag_state
     |> cast(attrs, [:enabled, :value])
-    |> validate_required([:enabled, :value])
+    |> validate_required([:enabled])
   end
 end

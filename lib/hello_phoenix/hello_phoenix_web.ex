@@ -5,6 +5,7 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
   alias HelloPhoenix.Repo
   alias HelloPhoenix.Flag
   alias HelloPhoenix.FlagState
+  alias HelloPhoenixWeb.Endpoint
 
   def get_environment(nil) do
     Environment |> Repo.one()
@@ -60,18 +61,19 @@ defmodule HelloPhoenix.HelloPhoenixWeb do
     |> Repo.insert()
   end
 
-  def update_flag(%Flag{} = flag, attrs) do
-    flag
-    |> Flag.changeset(attrs)
-    |> Repo.update()
+  def update_flag_state(%FlagState{} = flag_state, attrs) do
+    case change_flag_state(flag_state, attrs) |> Repo.update() do
+      {:ok, new_flag_state} ->
+        Endpoint.broadcast("flag_states", "item_changed", new_flag_state)
+    end
   end
 
   def delete_flag(%Flag{} = flag) do
     Repo.delete(flag)
   end
 
-  def change_flag(%Flag{} = flag, attrs \\ %{}) do
-    Flag.changeset(flag, attrs)
+  def change_flag_state(%FlagState{} = flag_state, attrs \\ %{}) do
+    FlagState.changeset(flag_state, attrs)
   end
 
   def set_flag_state_enabled(id, value) do

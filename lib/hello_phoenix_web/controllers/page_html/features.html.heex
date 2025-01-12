@@ -1,7 +1,10 @@
 <.flash_group flash={@flash} />
 <div class="space-y-4">
   <h1 class="font-bold text-3xl">Features</h1>
-  {live_render(@conn, HelloPhoenixWeb.EnvironmentFeaturesLive,
-    session: %{"environment_id" => @environment.id}
+  {live_render(@conn, HelloPhoenixWeb.CollectionLive,
+    session: %{
+      "collection" => HelloWeb.compute_flags(%{:environment_id => @environment.id}),
+      "component" => HelloPhoenixWeb.FeatureLive
+    }
   )}
 </div>

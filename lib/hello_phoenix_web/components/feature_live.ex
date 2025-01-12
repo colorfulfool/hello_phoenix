@@ -53,7 +53,11 @@ defmodule HelloPhoenixWeb.FeatureLive do
     new_enabled = !socket.assigns.flag_state.enabled
 
     HelloPhoenixWeb.set_flag_state_enabled(id, new_enabled)
-    Web.Endpoint.broadcast("flags", "flag_state_changed", %{:id => id, :enabled => new_enabled})
+
+    Web.Endpoint.broadcast("flag_states", "item_changed", %{
+      :id => id,
+      :enabled => new_enabled
+    })
 
     {:noreply, socket}
   end

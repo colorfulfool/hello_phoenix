@@ -5,7 +5,8 @@ defmodule HelloPhoenixWeb.DashboardController do
 
   def features(conn, params) do
     environment = HelloPhoenixWeb.get_environment(params[:environment])
-    render(conn, "features.html", %{:environment => environment})
+    flag_states = HelloPhoenixWeb.compute_flags(%{:environment_id => environment.id})
+    render(conn, "features.html", %{:environment => environment, :flag_states => flag_states})
   end
 
   def scheduling(conn, params) do

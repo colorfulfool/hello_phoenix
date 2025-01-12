@@ -4,7 +4,6 @@ defmodule HelloPhoenixWeb.FeatureLive do
   import HelloPhoenixWeb.FlagComponents
   import HelloPhoenixWeb.CoreComponents
 
-  alias HelloPhoenixWeb, as: Web
   alias HelloPhoenix.HelloPhoenixWeb
   alias Phoenix.LiveView.JS
 
